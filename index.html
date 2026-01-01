@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Versa | Digital Services</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Versa Logo" class="nav-logo">
+            <span class="brand-name">VERSA</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="active">Home</a>
+            <a href="#services">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <button class="login-btn-nav" onclick="toggleAuthModal()">Login / Sign Up</button>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-section">
+        <div class="hero-bg">
+            <img src="assets/3d-bg.png" alt="Background">
+        </div>
+        <div class="hero-content">
+            <h1 class="animate-text">Future of <br> <span class="highlight">Digital Creation</span></h1>
+            <p>Professional Video Editing, Web Development & Graphic Design. Book your service today.</p>
+            <div class="hero-buttons">
+                <button class="cta-btn primary" onclick="toggleAuthModal()">Get Started (5 Free Trials)</button>
+                <button class="cta-btn secondary" onclick="window.location.href='#services'">Explore Services</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="authModal" class="auth-overlay">
+        <div class="auth-box glass-effect">
+            <span class="close-btn" onclick="toggleAuthModal()">&times;</span>
+            
+            <div id="loginForm" class="auth-form">
+                <h2>Welcome Back</h2>
+                <p>Login to access your Dashboard</p>
+                <form id="login-form-submit">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-email" placeholder="Email Address" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">LOGIN</button>
+                </form>
+                <p class="switch-text">New here? <a onclick="switchAuth('register')">Create Account</a></p>
+            </div>
+
+            <div id="registerForm" class="auth-form hidden">
+                <h2>Join Versa</h2>
+                <p>Register to get 5 Free Trials</p>
+                <form id="register-form-submit">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="reg-name" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="reg-phone" placeholder="Mobile Number (+91...)" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="reg-email" placeholder="Email Address" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="reg-password" placeholder="Set Password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">REGISTER</button>
+                </form>
+                <p class="switch-text">Already have an account? <a onclick="switchAuth('login')">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://youtube.com/@ayatserenity-t4i?si=i-ZRqkKPEABVIW2p" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/mallik.edittion?igsh=YXNwdm52OWxydnpz" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/919239529167" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p>&copy; 2025 VERSA | Abdur Rahman Mallik</p>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    
+    <script>
+        // Toggle the Login/Register Modal
+        function toggleAuthModal() {
+            document.getElementById('authModal').classList.toggle('active');
+        }
+
+        // Switch between Login and Register views
+        function switchAuth(type) {
+            if(type === 'register') {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.remove('hidden');
+            } else {
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('hidden');
+            }
+        }
+        
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

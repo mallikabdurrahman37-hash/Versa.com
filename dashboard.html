@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dashboard | Versa</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar dashboard-nav">
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Versa Logo" class="nav-logo">
+            <span class="brand-name">VERSA</span>
+        </div>
+        
+        <div class="nav-user-info">
+            <span id="nav-username">Loading...</span>
+            <button onclick="logoutUser()" class="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+    </nav>
+
+    <div class="container main-dashboard">
+        
+        <header class="dash-header">
+            <h1>Welcome, <span id="user-name-display" class="highlight">User</span></h1>
+            <p>Manage your orders and bookings.</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card glass-effect blue-glow">
+                <i class="fas fa-gift"></i>
+                <h3>Free Trials</h3>
+                <h2 id="trials-count">Loading...</h2>
+                <p>Remaining out of 5</p>
+            </div>
+            <div class="stat-card glass-effect">
+                <i class="fas fa-clock"></i>
+                <h3>Active Orders</h3>
+                <h2 id="active-orders-count">0</h2>
+                <p>In Progress</p>
+            </div>
+            <div id="admin-panel-btn" class="stat-card glass-effect hidden" onclick="window.location.href='admin.html'">
+                <i class="fas fa-user-shield"></i>
+                <h3>Admin Panel</h3>
+                <h2>ACCESS</h2>
+                <p>Click to Manage</p>
+            </div>
+        </div>
+
+        <section class="booking-section glass-effect">
+            <div class="section-title">
+                <h2><i class="fas fa-plus-circle"></i> New Booking</h2>
+            </div>
+            
+            <form id="booking-form">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Select Service</label>
+                        <select id="service-type" required>
+                            <option value="" disabled selected>Choose a service...</option>
+                            <option value="Video Editing">Video Editing</option>
+                            <option value="Logo Design">Logo Design</option>
+                            <option value="Graphic Design">Graphic Design</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Music Editing">Music Editing</option>
+                            <option value="3D Design">3D Design</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Preferred Software</label>
+                        <select id="software-pref" required>
+                            <option value="No Preference">No Preference</option>
+                            <option value="CapCut">CapCut</option>
+                            <option value="Alight Motion">Alight Motion</option>
+                            <option value="After Effects">After Effects (PC)</option>
+                            <option value="Premiere Pro">Premiere Pro (PC)</option>
+                            <option value="Canva">Canva</option>
+                            <option value="Photoshop">Photoshop</option>
+                            <option value="Blender">Blender (3D)</option>
+                            <option value="Spck/Acode">Coding (Web)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Google Drive Link (Raw Footage/Photos)</label>
+                    <input type="url" id="drive-link" placeholder="https://drive.google.com/..." required>
+                    <small style="color: #aaa;">*Make sure link permission is set to 'Anyone with link'</small>
+                </div>
+
+                <div class="input-group">
+                    <label>Project Description</label>
+                    <textarea id="project-desc" rows="4" placeholder="Describe what you want... (e.g. 'Make it brutal style', 'Soft cinematic')" required></textarea>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Your Name</label>
+                        <input type="text" id="order-name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>WhatsApp Number</label>
+                        <input type="tel" id="order-phone" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="cta-btn primary full-width">Place Order</button>
+            </form>
+        </section>
+
+        <section class="orders-section">
+            <div class="section-title">
+                <h2><i class="fas fa-list"></i> My Orders</h2>
+            </div>
+            <div id="orders-list" class="orders-list">
+                <p class="loading-text">Loading your orders...</p>
+            </div>
+        </section>
+
+        <section class="portfolio-section glass-effect">
+            <div class="section-title">
+                <h2><i class="fas fa-eye"></i> Our Work Examples</h2>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item"><img src="assets/portfolio/image1.png" alt="Work 1"></div>
+                <div class="portfolio-item"><img src="assets/portfolio/image2.png" alt="Work 2"></div>
+                <div class="portfolio-item"><img src="assets/portfolio/image3.png" alt="Work 3"></div>
+                <div class="portfolio-item"><img src="assets/portfolio/image4.png" alt="Work 4"></div>
+                <div class="portfolio-item video"><video src="assets/portfolio/vid1.mp4" controls></video></div>
+                <div class="portfolio-item video"><video src="assets/portfolio/vid2.mp4" controls></video></div>
+                <div class="portfolio-item video"><video src="assets/portfolio/vid3.mp4" controls></video></div>
+                <div class="portfolio-item video"><video src="assets/portfolio/vid4.mp4" controls></video></div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/booking.js"></script> </body>
+</html>

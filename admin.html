@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Admin Panel | Versa</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .admin-section { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .order-card-admin { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(0, 255, 255, 0.1); margin-bottom: 15px; padding: 15px; border-radius: 10px; }
+        .status-select { background: #0f172a; color: white; border: 1px solid #334155; padding: 5px; border-radius: 5px; }
+        .admin-actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px; margin-bottom: 5px; border-radius: 5px; }
+        .price-input { width: 80px; background: transparent; border: 1px solid #444; color: white; padding: 5px; text-align: right; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" style="background: rgba(20, 0, 0, 0.9); border-bottom: 2px solid red;">
+        <div class="logo-container">
+            <i class="fas fa-user-shield" style="font-size: 24px; color: red; margin-right: 10px;"></i>
+            <span class="brand-name">ADMIN PANEL</span>
+        </div>
+        <div class="nav-links">
+            <a href="dashboard.html">Back to Dashboard</a>
+            <button onclick="logoutUser()" class="logout-btn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <section class="admin-section">
+            <div class="section-title">
+                <h2><i class="fas fa-tags"></i> Manage Services & Prices</h2>
+            </div>
+            
+            <div class="glass-effect" style="padding: 20px;">
+                <form id="add-service-form" style="margin-bottom: 20px; display: flex; gap: 10px;">
+                    <input type="text" id="new-service-name" placeholder="Service Name (e.g. VFX)" required style="flex: 2;">
+                    <input type="number" id="new-service-price" placeholder="Price (₹)" required style="flex: 1;">
+                    <button type="submit" class="cta-btn primary">Add</button>
+                </form>
+
+                <div id="services-list-admin">
+                    <p>Loading prices...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-section">
+            <div class="section-title">
+                <h2><i class="fas fa-tasks"></i> Incoming Orders</h2>
+            </div>
+
+            <div class="filter-buttons" style="margin-bottom: 20px; display: flex; gap: 10px; overflow-x: auto;">
+                <button class="cta-btn secondary" onclick="loadAllOrders('all')">All</button>
+                <button class="cta-btn secondary" onclick="loadAllOrders('Pending')">Pending</button>
+                <button class="cta-btn secondary" onclick="loadAllOrders('Accepted')">Accepted</button>
+                <button class="cta-btn secondary" onclick="loadAllOrders('Completed')">Completed</button>
+            </div>
+
+            <div id="admin-orders-container">
+                <p class="loading-text">Fetching orders from Database...</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    
+    <script>
+        // We will move this to a proper js file later, but for safety, we keep a check here
+        document.addEventListener('DOMContentLoaded', () => {
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    // Check if user is admin in Database
+                    db.collection('users').doc(user.uid).get().then(doc => {
+                        if (doc.exists && doc.data().role === 'admin') {
+                            console.log("Admin Access Granted");
+                            // Load Admin Scripts only if authorized
+                            const script = document.createElement('script');
+                            script.src = "js/admin.js";
+                            document.body.appendChild(script);
+                        } else {
+                            alert("⛔ ACCESS DENIED: You are not an Admin.");
+                            window.location.href = "index.html";
+                        }
+                    });
+                } else {
+                    window.location.href = "index.html";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
