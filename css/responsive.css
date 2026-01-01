@@ -1,0 +1,114 @@
+/* =========================================
+   RESPONSIVE DESIGN (Mobile vs PC)
+   ========================================= */
+
+/* TABLET & MOBILE (Screen width less than 768px) */
+@media (max-width: 768px) {
+
+    /* 1. NAVBAR (Mobile Drawer Menu) */
+    .hamburger {
+        display: block; /* Show the 3 lines icon */
+        color: white;
+    }
+
+    .nav-links {
+        position: fixed;
+        right: -100%; /* Hide off-screen by default */
+        top: 70px; /* Below the navbar */
+        height: calc(100vh - 70px);
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 50px;
+        width: 70%;
+        transition: 0.4s ease-in-out;
+        border-left: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-links.active {
+        right: 0; /* Slide in when active */
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        margin: 15px 0;
+    }
+
+    /* 2. HERO SECTION */
+    .hero-content h1 {
+        font-size: 2rem; /* Smaller text for phone */
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .cta-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    /* 3. FORMS & INPUTS */
+    .form-grid {
+        grid-template-columns: 1fr; /* Stack inputs vertically */
+    }
+
+    .auth-box {
+        width: 95%; /* Use full width on mobile */
+        padding: 20px;
+    }
+
+    /* 4. DASHBOARD STATS */
+    .stats-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically */
+    }
+
+    /* 5. ADMIN PANEL MOBILE TWEAKS */
+    .price-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .price-input {
+        width: 100%; /* Full width inputs for easy tapping */
+    }
+    
+    .order-card, .order-card-admin {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .admin-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    /* Make buttons bigger for touch targets */
+    button, .cta-btn, .nav-links a {
+        min-height: 44px; /* Standard touch size */
+    }
+}
+
+/* SMALL MOBILE (Screen width less than 480px) */
+@media (max-width: 480px) {
+    .brand-name { font-size: 1.2rem; }
+    
+    .section-title h2 { font-size: 1.3rem; }
+    
+    /* Portfolio becomes 2 columns on very small screens */
+    .portfolio-grid {
+        grid-template-columns: 1fr 1fr; 
+    }
+}
